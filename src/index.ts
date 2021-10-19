@@ -2,10 +2,12 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import { createConnection } from "typeorm";
+import "reflect-metadata";
 
 import userRouter from "./routes/user.routes";
 
 const app = express();
+createConnection();
 
 //middleware
 app.use(cors());

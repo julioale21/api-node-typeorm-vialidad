@@ -4,5 +4,7 @@
   "port": 3306,
   "username": "root",
   "password": "",
-  "database": "vialidad"
+  "database": "vialidad",
+  "entities": ["dist/entity/**/*.js"],
+  "synchronize": true
 }
