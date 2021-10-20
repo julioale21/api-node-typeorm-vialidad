@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
+import bcrypt from "bcrypt";
 import { User } from "../entity/User";
 
 export const getUsers = async (req: Request, res: Response): Promise<Response> => {
@@ -8,7 +9,8 @@ export const getUsers = async (req: Request, res: Response): Promise<Response> =
 }
 
 export const createUser = async (req: Request, res: Response): Promise<Response> => {
-  const user = req.body
+  let user = req.body
+  user.password = bcrypt.hashSync(req.body.password, 10)
   const newUser = getRepository(User).create(user)
   const createdUser = await getRepository(User).save(newUser);
   return res.json(createdUser);
