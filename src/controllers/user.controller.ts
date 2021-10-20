@@ -33,7 +33,7 @@ export const loginUser = async (req: Request, res: Response) : Promise<any> => {
   const token = Jwt.sign({
     id: user.id,
     email: user.email
-  }, "secret_key")
+  }, "secret_key", { expiresIn: '1h'})
 
   return res.status(200).send({ access_token: token })
 }
