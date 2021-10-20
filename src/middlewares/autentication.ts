@@ -6,7 +6,7 @@ export const validateAuth = (req: Request, res: Response, next: NextFunction) =>
   if (!token) return res.status(401).json({ error: "You have not permissions"})
 
   try {
-    const verified = jwt.verify(token, 'secret_key')
+    const verified = jwt.verify(token, process.env.SECRET as string)
     next();
   } catch (error) {
     return res.status(400).json({ error: 'Invalid token'})

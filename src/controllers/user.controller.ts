@@ -11,6 +11,12 @@ export const getUsers = async (req: Request, res: Response): Promise<Response> =
 
 export const createUser = async (req: Request, res: Response): Promise<Response> => {
   let user = req.body
+
+  const isEmailInUse = await getRepository(User).findOne({ email: user.email });
+  if (isEmailInUse) {
+    return res.status(400).send({ error: "Email already in use."})
+  }
+
   user.password = bcrypt.hashSync(req.body.password, 10)
   const newUser = getRepository(User).create(user)
   const createdUser = await getRepository(User).save(newUser);
@@ -33,7 +39,7 @@ export const loginUser = async (req: Request, res: Response) : Promise<any> => {
   const token = Jwt.sign({
     id: user.id,
     email: user.email
-  }, "secret_key", { expiresIn: '1h'})
+  }, process.env.SECRET as string, { expiresIn: '1h'})
 
   return res.status(200).send({ access_token: token })
 }

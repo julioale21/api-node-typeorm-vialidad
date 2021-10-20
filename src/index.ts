@@ -1,8 +1,11 @@
+import "reflect-metadata";
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import { createConnection } from "typeorm";
-import "reflect-metadata";
+import * as dotenv from "dotenv";
+
+dotenv.config({ path: __dirname + "/.env" });
 
 import userRouter from "./routes/user.routes";
 
@@ -17,6 +20,7 @@ app.use(express.json());
 // routes
 app.use(userRouter);
 
-
-app.listen(3000)
-console.log("server on port " + 3000)
+const PORT = process.env.PORT || 3000
+app.listen(PORT, () => {
+  console.log("server on port " + PORT)
+})
