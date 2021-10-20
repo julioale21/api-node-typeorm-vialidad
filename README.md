@@ -46,4 +46,13 @@ en package.json
 "start": "node dist/index.js"
 
 
+Agregar encriptacion
+
+npm i bcrypt
+npm i @types/bcrypt
+
+npm i jsonwebtoken
+npm i @types/jsonwebtoken
+
+
 
